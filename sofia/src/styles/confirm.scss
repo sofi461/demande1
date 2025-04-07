@@ -1,0 +1,39 @@
+ .confirm,.valid{
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%,-50%);
+ background-color: aqua;
+ height: 70%;
+ width: 50%;
+ text-align: center;
+ background: linear-gradient(65deg, #dfe234, #1f3acf);
+ border-radius: 10px;
+ color: #000a41;
+ }
+ h1{
+   position: absolute ;
+   top: 15%;
+   left: 40%;
+   font-size: 3rem;
+ }
+ P{
+   position: absolute ;
+   top: 35%;
+   left: 7%;
+   font-size: 3rem;
+ }
+ #validez{
+   position: relative;
+    top: 85%;
+    color: #000a41;
+    border: none;
+    background: linear-gradient(65deg, #e4e716, #0623c7);
+    width: 31%;
+    left: 33%;
+    height: 10%;
+    margin: 12px auto 0;
+    padding: 10px;
+    border-radius: 150px;
+font-size: 1.5rem;
+ }

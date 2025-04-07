@@ -1,0 +1,96 @@
+.page-style{
+    background-image: url('/src/styles/demande.png3.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height:  586px;
+    width:1000px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    position: absolute;
+    border-radius: 40px;
+   box-shadow: 0 0 20px 5px #01327c;
+   display: flex;
+
+}
+ .pagestyle{
+   background-image: url('/src/styles/Desktop\ -\ 1.png');
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+   height:  586px;
+   width:1000px;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%,-50%);
+   position: absolute;
+   border-radius: 40px;
+  box-shadow: 0 0 20px 5px #01327c;
+  display: flex;
+ }
+.h{
+    background-color: white;
+}
+ .par1{
+    position: absolute;
+    top: 9%;
+    left: 50%;
+ }
+ .par2{
+    position: absolute;
+    top: 23%;
+    left: 70%;  
+ }
+ .par3{
+    position: absolute;
+    top: 37%;
+    left: 45%;
+ }
+ .par4{
+    position: absolute;
+    top: 55%;
+    left: 70%;
+ }
+ .par5{
+    position: absolute;
+    top: 74%;
+    left: 50%;
+ }
+  #marque,#code,#type,#km,#genre{
+    margin-left: 10px;
+    border-radius: 9px;
+    height: 20px;
+border: 4px solid #001a41;
+background-color:  #e9e970;
+ }
+ #km{
+    margin-left: 10px;
+    border-radius: 9px;
+    height: 20px;
+border: 4px solid #001a41;
+background-color:  #e9e970;
+ 
+margin-top: 4px;
+padding-left: 130px;
+  width: 150px; 
+ }
+ #MARQUE,#CODE,#TYPE,#KM,#GENRE{
+     color: #D3D31B;
+        font-family: "Irish Grover", system-ui;
+        font-weight: 400;
+        font-style: normal;
+       font-size: 1.5rem;
+ }
+ #SUIVAN{
+    width: 20%;
+    top: 10%;
+    position: absolute;
+    top: 90%;
+    left: 78%;
+    border-radius: 20px;
+color:   #032e70;
+background-color:    #D3D31B;
+ font-size: 20px;
+  
+ }
