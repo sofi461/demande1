@@ -1,6 +1,6 @@
  "use client"; // Important
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";  
 import { useFormData } from "../../components/FormContext";  
 import RadioGroup from "../../components/RadioGroup";  
@@ -8,11 +8,38 @@ import RadioGroup from "../../components/RadioGroup";
 export default function ConstatFinalPage() {
   const router = useRouter();
   const { formData } = useFormData();
-
+const [x,setx]=useState("")
   useEffect(() => {
     console.log("Form data loaded for final review:", formData);
   }, [formData]);
-
+  const RadioGroup = (
+    { name, options, label, disabled, formData } // Ajout de formData pour lire la valeur cochée
+  ) => (
+    <div>
+      <label className="block mb-2  ">{label} :</label>
+      <div className="flex flex-wrap gap-4">
+        {options.map((option) => (
+          <label
+            key={option.value}
+            className={`flex items-center space-x-2 ${
+              disabled ? "cursor-not-allowed opacity-70 text-sm" : ""
+            }`}
+          >
+            <input
+              type="radio"
+              name={name + (disabled ? "-disabled" : "")} // Nom unique pour groupes désactivés si nécessaire
+              value={option.value}
+              // Lire la valeur depuis formData passé en prop
+              checked={formData && formData[name] === option.value}
+              className="form-radio h-4 w-4 text-blue-600"
+              disabled={disabled}
+            />
+            <span>{option.label}</span>
+          </label>
+        ))}
+      </div>
+    </div>
+  )
   const handlePrint = () => {
     // ... Code de handlePrint (inchangé) ...
     const printWindow = window.open("", "_blank");
@@ -21,9 +48,9 @@ export default function ConstatFinalPage() {
       <html>
         <head>
           <title>DEMANDE D'INTERVENTION - ${formData.num || ""}</title>
-          <style>
+                   <style>
             /* --- Styles CSS (inchangés) --- */
-             body { font-family: Arial, sans-serif; margin: 15px; padding: 0; font-size: 10px; line-height: 1.3; }
+             body { font-family: Arial, sans-serif; margin: 15px; padding: 0;border:1px solid yellow ;font-size: 10px; line-height: 1.3; }
             .header-table, table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
             .header-table td { border: none; padding: 0; vertical-align: top; }
             h2 { text-align: center; margin: 0 0 5px 0; font-size: 1.4em; font-weight: bold; }
@@ -32,7 +59,7 @@ export default function ConstatFinalPage() {
             th, td { border: 1px solid black; padding: 5px; text-align: left; vertical-align: top; }
             th { background-color: #f2f2f2; font-weight: bold; font-size: 0.95em; text-align: center; }
             td { font-size: 0.95em; line-height: 1.4; }
-            strong { font-weight: bold; }
+          
             .logo img { height: 35px; display: block; object-fit: fill; width:30%; height:20%; }
             .small-text { font-size: 0.8em; margin: 0; padding: 0; }
             .text-right { text-align: right; }
@@ -349,7 +376,7 @@ export default function ConstatFinalPage() {
       printWindow.close();
     }, 250);
   };
-
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(
@@ -409,74 +436,74 @@ export default function ConstatFinalPage() {
     <div className="flex justify-center items-center lg:py-10 px-4">
       {" "}
       {/* Ajustement padding */}
-      <div className="bg-white shadow-xl lg:p-10 p-5 rounded-lg border border-gray-200 font-sans w-full max-w-5xl">
+      <div className="bg-white shadow-lg lg:p-20 p-6 rounded-lg border-amber-300 border font-semibold w-full max-w-4xl">
         {" "}
         {/* Style ajusté */}
-        <h2 className="text-2xl lg:text-3xl font-bold text-blue-900 text-center mb-8 p-4 bg-gray-50 rounded shadow-sm">
+        <h2 className=" lg:text-3xl text-xl font-bold text-blue-900 text-center lg:mb-10 mb-6 p-5 bg-blue-50 shadow">
           Revue de la Demande d'intervention
         </h2>
-        <div className="flex flex-col gap-y-6 md:gap-y-8">
+        <div className="flex flex-col gap-6 ">
           {" "}
           {/* Espacement sections */}
           {/* --- Section 1: Infos Générales --- */}
           <section>
-            <h4 className="text-lg font-semibold text-blue-800 border-b border-blue-200 pb-2 mb-4">
+            <h4 className=" text-lg font-bold text-blue-800 border-b pb-2 mb-4">
               Informations Générales
             </h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {" "}
               {/* Grille responsive */}
               <div>
-                <label className="block text-xs font-medium text-gray-600">
+                <label    className="block mb-1 text-sm">
                   N°:
                 </label>
                 <input
                   type="text"
-                  className="input bg-gray-100 mt-1"
+                  className="input bg-gray-100  w-full  border-b border-b-amber-300  text-base h-7 px-2 "
                   value={formData.num || ""}
                   readOnly
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600">
+                <label  className="block mb-1 text-sm">
                   Date panne:
                 </label>
                 <input
                   type="date"
-                  className="input bg-gray-100 mt-1"
+                  className="input bg-gray-100  w-full  border-b border-b-amber-300  text-base h-7 px-2 "
                   value={formData.datePanne || ""}
                   readOnly
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600">
+                <label  className="block mb-1 text-sm">
                   Heure panne:
                 </label>
                 <input
                   type="time"
-                  className="input bg-gray-100 mt-1"
+                  className="input bg-gray-100  w-full  border-b border-b-amber-300  text-base h-7 px-2"
                   value={formData.heurePanne || ""}
                   readOnly
                 />
               </div>
-              <div className="sm:col-span-2">
-                <label className="block text-xs font-medium text-gray-600">
+              <div >
+                <label  className="block mb-1 text-sm">
                   District/Autre:
                 </label>
                 <input
                   type="text"
-                  className="input bg-gray-100 mt-1"
+                  className="input bg-gray-100   w-full  border-b border-b-amber-300  text-base h-7 px-2"
                   value={formData.district || ""}
                   readOnly
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600">
+                <label  className="block mb-1  text-sm">
                   CDS/Autre:
                 </label>
                 <input
                   type="text"
-                  className="input bg-gray-100 mt-1"
+                  className="input bg-gray-100   w-full  border-b border-b-amber-300    h-7 px-2 [text-rendering:optimizeLegibility] "
                   value={formData.cds || ""}
                   readOnly
                 />
@@ -484,55 +511,91 @@ export default function ConstatFinalPage() {
             </div>
           </section>
           {/* --- Section 1.b: Catégorisation --- */}
-          <section>
-            <h4 className="text-lg font-semibold text-blue-800 border-b border-blue-200 pb-2 mb-4">
+            
+            <h4 className="   text-lg font-bold text-blue-800 border-b pb-2 mb-4">
               Catégorisation
             </h4>
-            <div className="space-y-4">
-              <RadioGroup
-                name="structureMaint"
-                label="Structure Maintenance Destinataire"
-                options={structureOptions}
-                disabled={true}
-                formData={formData}
+           <div>
+            <div className="space-y-4 grid grid-cols-1 md:grid-cols-2 gap-5">
+            </div>  
+        <h4 className=" ">
+          Structure Maintenance Destinataire :
+        </h4>
+        <div className=" space-y-4">
+          {structureOptions.map((option) => (
+            <div className="flex items-center gap-3" key={option.value}>
+              <input
+                type="radio"
+                name="structureMaintRadio"
+                id={`struct-${option.value}`}
+                defaultChecked={formData.structureMaint===option.value}
+                readOnly
+              disabled={formData.structureMaint!==option.value}  
               />
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <RadioGroup
-                  name="activite"
-                  label="Activité"
-                  options={activiteOptions}
-                  disabled={true}
-                  formData={formData}
+              <label
+                htmlFor={`struct-${option.value}`}
+                className="w-48 flex-shrink-0"
+              >
+                {option.label}
+              </label>
+              {(option.value === "cds" ||
+                option.value === "unm" ||
+                option.value === "garage" ||
+                option.value === "externe" ||
+                option.value === "canalisation") && (  
+                <input
+                  type="text"
+                  
+                  id={`${option.value}Input`}
+                  className="  input bg-gray-100  w-40  border-b border-b-amber-300  text-base h-7 px-1"
+                  placeholder={``}
+                    disabled={formData.structureMaint !==option.value}
+                  readOnly
                 />
-                <RadioGroup
-                  name="naturePanne"
-                  label="Nature de la panne"
-                  options={naturePanneOptions}
-                  disabled={true}
-                  formData={formData}
-                />
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <RadioGroup
-                  name="natureTravaux"
-                  label="Nature des travaux"
-                  options={natureTravauxOptions}
-                  disabled={true}
-                  formData={formData}
-                />
-                <RadioGroup
-                  name="urgence"
-                  label="Degré d'urgence"
-                  options={urgenceOptions}
-                  disabled={true}
-                  formData={formData}
-                />
-              </div>
+              )}
             </div>
-          </section>
+          ))}
+        </div>
+      </div>
+         
+           
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <RadioGroup
+              name="activite"
+              label="Activité"
+              options={activiteOptions}
+              disabled={true}
+              formData={formData}
+            />
+            <RadioGroup
+              name="naturePanne"
+              label="Nature de la panne"
+              options={naturePanneOptions}
+              disabled={true}
+              formData={formData}
+            />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <RadioGroup
+              name="natureTravaux"
+              label="Nature des travaux"
+              options={natureTravauxOptions}
+              disabled={true}
+              formData={formData}
+            />
+            <RadioGroup
+              name="urgence"
+              label="Degré d'urgence"
+              options={urgenceOptions}
+              disabled={true}
+              formData={formData}
+            />
+          </div>
+            </div>
+             
           {/* --- Section 2: Identification & Constat --- */}
           <section>
-            <h4 className="text-lg font-semibold text-blue-800 border-b border-blue-200 pb-2 mb-4">
+            <h4 className=" text-lg font-bold text-blue-800 border-b pb-2 mb-4">
               Identification du bien & Constat
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-sm mb-4">
@@ -542,7 +605,7 @@ export default function ConstatFinalPage() {
                 </label>
                 <input
                   type="text"
-                  className="input bg-gray-100 mt-1"
+                  className=" input bg-gray-100  w-full  border-b border-b-amber-300  text-base h-7 px-1"
                   value={formData.code || ""}
                   readOnly
                 />
@@ -553,7 +616,7 @@ export default function ConstatFinalPage() {
                 </label>
                 <input
                   type="text"
-                  className="input bg-gray-100 mt-1"
+                  className=" input bg-gray-100  w-full  border-b border-b-amber-300  text-base h-7 px-1"
                   value={formData.genre || ""}
                   readOnly
                 />
@@ -564,7 +627,7 @@ export default function ConstatFinalPage() {
                 </label>
                 <input
                   type="text"
-                  className="input bg-gray-100 mt-1"
+                  className=" input bg-gray-100  w-full  border-b border-b-amber-300  text-base h-7 px-1"
                   value={formData.marque || ""}
                   readOnly
                 />
@@ -575,7 +638,7 @@ export default function ConstatFinalPage() {
                 </label>
                 <input
                   type="text"
-                  className="input bg-gray-100 mt-1"
+                  className=" input bg-gray-100  w-full  border-b border-b-amber-300  text-base h-7 px-1"
                   value={formData.kmHeures || ""}
                   readOnly
                 />
@@ -586,7 +649,7 @@ export default function ConstatFinalPage() {
                 </label>
                 <input
                   type="text"
-                  className="input bg-gray-100 mt-1"
+                  className=" input bg-gray-100  w-full  border-b border-b-amber-300  text-base h-7 px-1"
                   value={formData.type || ""}
                   readOnly
                 />
@@ -597,7 +660,7 @@ export default function ConstatFinalPage() {
                 Constat de la panne :
               </label>
               <textarea
-                className="input h-28 resize-none w-full bg-gray-100"
+                className=" input bg-gray-100  w-full  border-b border-b-amber-300  text-base h-40 px-1 "
                 value={formData.constatPanne || ""}
                 readOnly
               ></textarea>
@@ -605,55 +668,55 @@ export default function ConstatFinalPage() {
           </section>
           {/* --- Section 2.b: Demandeur & Responsable --- */}
           <section>
-            <h4 className="text-lg font-semibold text-blue-800 border-b border-blue-200 pb-2 mb-4">
+            <h4 className=" text-lg font-bold text-blue-800 border-b pb-2 mb-4">
               Demandeur & Responsable
             </h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-14">
               <fieldset className="border p-4 rounded bg-gray-50 text-sm">
                 <legend className="font-medium px-2 text-base text-gray-700">
                   Demandeur
                 </legend>
                 <div className="space-y-3">
                   <div>
-                    <label className="block text-xs font-medium text-gray-600">
+                    <label className=" block mb-2 text-sm ">
                       Nom & Prénom:
                     </label>
                     <input
                       type="text"
-                      className="input bg-gray-100 mt-1"
+                      className=" input bg-gray-100  w-full  border-b border-b-amber-300  text-base h-7 px-1"
                       value={formData.nomDemandeur || ""}
                       readOnly
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-600">
+                    <label className=" block mb-2 text-sm">
                       Fonction:
                     </label>
                     <input
                       type="text"
-                      className="input bg-gray-100 mt-1"
+                      className=" input bg-gray-100  w-full  border-b border-b-amber-300  text-base h-7 px-1"
                       value={formData.fonctionDemandeur || ""}
                       readOnly
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-600">
+                    <label className=" block mb-2 text-sm">
                       Date:
                     </label>
                     <input
                       type="date"
-                      className="input bg-gray-100 mt-1"
+                      className=" input bg-gray-100  w-full  border-b border-b-amber-300  text-base h-7 px-1"
                       value={formData.dateDemandeur || ""}
                       readOnly
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-600">
+                    <label className=" block mb-2 text-sm">
                       Visa:
                     </label>
                     <input
                       type="text"
-                      className="input bg-gray-100 mt-1"
+                      className=" input bg-gray-100  w-full  border-b border-b-amber-300  text-base h-7 px-1"
                       value={formData.visaDemandeur || ""}
                       readOnly
                     />
@@ -666,45 +729,45 @@ export default function ConstatFinalPage() {
                 </legend>
                 <div className="space-y-3">
                   <div>
-                    <label className="block text-xs font-medium text-gray-600">
+                    <label className=" block mb-2 text-sm">
                       Nom & Prénom:
                     </label>
                     <input
                       type="text"
-                      className="input bg-gray-100 mt-1"
+                      className=" input bg-gray-100  w-full  border-b border-b-amber-300  text-base h-7 px-1"
                       value={formData.nomResponsable || ""}
                       readOnly
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-600">
+                    <label className=" block mb-2 text-sm">
                       Fonction:
                     </label>
                     <input
                       type="text"
-                      className="input bg-gray-100 mt-1"
+                      className=" input bg-gray-100  w-full  border-b border-b-amber-300  text-base h-7 px-1"
                       value={formData.fonctionResponsable || ""}
                       readOnly
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-600">
+                    <label className=" block mb-2 text-sm">
                       Date:
                     </label>
                     <input
                       type="date"
-                      className="input bg-gray-100 mt-1"
+                      className=" input bg-gray-100  w-full  border-b border-b-amber-300  text-base h-7 px-1"
                       value={formData.dateResponsable || ""}
                       readOnly
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-600">
+                    <label className=" block mb-2 text-sm">
                       Visa:
                     </label>
                     <input
                       type="text"
-                      className="input bg-gray-100 mt-1"
+                      className=" input bg-gray-100  w-full  border-b border-b-amber-300  text-base h-7 px-1"
                       value={formData.visaResponsable || ""}
                       readOnly
                     />
@@ -715,26 +778,26 @@ export default function ConstatFinalPage() {
           </section>
           {/* --- Section 3: Qualification & Intervenant --- */}
           <section>
-            <h4 className="text-lg font-semibold text-blue-800 border-b border-blue-200 pb-2 mb-4">
+            <h4 className=" text-lg font-bold text-blue-800 border-b pb-2 mb-4">
               Qualification de l'intervention
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className=" block mb-2 text-base">
                   Diagnostic Préliminaire:
                 </label>
                 <textarea
-                  className="input h-24 resize-none w-full bg-gray-100"
+                  className=" input bg-gray-100   w-full  border-b border-b-amber-300  text-base h-40 px-1"
                   value={formData.diagnostic || ""}
                   readOnly
                 ></textarea>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className=" block mb-2 text-base">
                   Description nature des travaux:
                 </label>
                 <textarea
-                  className="input h-24 resize-none w-full bg-gray-100"
+                  className="  input bg-gray-100  w-full  border-b border-b-amber-300  text-base h-40 px-1"
                   value={formData.natureTravauxDesc || ""}
                   readOnly
                 ></textarea>
@@ -747,7 +810,7 @@ export default function ConstatFinalPage() {
                 formData={formData}
               />
               <div className="text-sm">
-                <label className="block font-medium text-gray-700 mb-2">
+                <label className="block mb-2 text-sm  ">
                   Permis de travail:
                 </label>
                 <div className="flex gap-4 mb-3">
@@ -759,7 +822,7 @@ export default function ConstatFinalPage() {
                       disabled
                       className="form-radio"
                     />
-                    <span>Oui</span>
+                    <span className="text-black">Oui</span>
                   </label>
                   <label className="flex items-center space-x-1 cursor-not-allowed opacity-70">
                     <input
@@ -769,27 +832,27 @@ export default function ConstatFinalPage() {
                       disabled
                       className="form-radio"
                     />
-                    <span>Non</span>
+                    <span className="text-black">Non</span>
                   </label>
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-600">
+                  <label className=" block mb-2 text-sm">
                     Routinier - PT Réf:
                   </label>
                   <input
                     type="text"
-                    className="input text-sm bg-gray-100 mt-1"
+                    className="  input bg-gray-100  w-full   border-b border-b-amber-300  text-base h-7 px-1"
                     value={formData.routRef || ""}
                     readOnly
                   />
                 </div>
                 <div className="mt-2">
-                  <label className="block text-xs font-medium text-gray-600">
+                  <label className=" block mb-2 text-sm">
                     Dangereux - PT Réf:
                   </label>
                   <input
                     type="text"
-                    className="input text-sm bg-gray-100 mt-1"
+                    className="  input bg-gray-100  w-full  border-b border-b-amber-300  text-base h-7 px-1"
                     value={formData.danRef || ""}
                     readOnly
                   />
@@ -797,50 +860,50 @@ export default function ConstatFinalPage() {
               </div>
             </div>
             <fieldset className="border p-4 rounded bg-gray-50 text-sm">
-              <legend className="font-medium px-2 text-base text-gray-700">
-                Responsable HSE (si permis requis)
+              <legend className="font-medium px-2 text-base">
+                Responsable HSE (si permis requis) :
               </legend>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 <div>
-                  <label className="block text-xs font-medium text-gray-600">
+                  <label className="block mb-1 text-xs">
                     Nom & Prénom:
                   </label>
                   <input
                     type="text"
-                    className="input text-sm bg-gray-100 mt-1"
+                    className="  input bg-gray-200  w-full  border-b border-b-amber-300  text-base h-5 px-1"
                     value={formData.nomPrenom || ""}
                     readOnly
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-600">
+                  <label className=" block mb-1 text-xs">
                     Fonction:
                   </label>
                   <input
                     type="text"
-                    className="input text-sm bg-gray-100 mt-1"
+                    className="  input bg-gray-200  w-full  border-b border-b-amber-300  text-base h-5 px-1"
                     value={formData.fonction || ""}
                     readOnly
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-600">
+                  <label className="block mb-1 text-xs ">
                     Date:
                   </label>
                   <input
                     type="date"
-                    className="input text-sm bg-gray-100 mt-1"
+                    className="  input bg-gray-200  w-full  border-b border-b-amber-300  text-base h-5 px-1"
                     value={formData.date || ""}
                     readOnly
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-600">
+                  <label className=" block mb-1 text-xs">
                     Visa HSE:
                   </label>
                   <input
                     type="text"
-                    className="input text-sm bg-gray-100 mt-1"
+                    className="  input bg-gray-200  w-full  border-b border-b-amber-300  text-base h-5 px-1"
                     value={formData.visahse || ""}
                     readOnly
                   />
@@ -850,7 +913,7 @@ export default function ConstatFinalPage() {
           </section>
           {/* --- Section 3.b: Intervenant & Responsable Maintenance --- */}
           <section>
-            <h4 className="text-lg font-semibold text-blue-800 border-b border-blue-200 pb-2 mb-4">
+            <h4 className=" text-lg font-bold text-blue-800 border-b pb-2 mb-4">
               Intervenant & Responsable Maintenance
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -860,45 +923,45 @@ export default function ConstatFinalPage() {
                 </legend>
                 <div className="space-y-3">
                   <div>
-                    <label className="block text-xs font-medium text-gray-600">
+                    <label className="block mb-1 text-xs">
                       Nom & Prénom:
                     </label>
                     <input
                       type="text"
-                      className="input bg-gray-100 mt-1"
+                      className="  input bg-gray-200  w-full  border-b border-b-amber-300  text-base h-5 px-1"
                       value={formData.nomIntervenant || ""}
                       readOnly
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-600">
+                    <label className="block text-xs mb-1">
                       Fonction:
                     </label>
                     <input
                       type="text"
-                      className="input bg-gray-100 mt-1"
+                      className="  input bg-gray-200  w-full  border-b border-b-amber-300  text-base h-5 px-1"
                       value={formData.fonctionIntervenant || ""}
                       readOnly
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-600">
+                    <label className="block mb-1 text-xs">
                       Date:
                     </label>
                     <input
                       type="date"
-                      className="input bg-gray-100 mt-1"
+                      className="  input bg-gray-200  w-full  border-b border-b-amber-300  text-base h-5 px-1"
                       value={formData.dateIntervenant || ""}
                       readOnly
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-600">
+                    <label className="block mb-1 text-xs ">
                       Visa HSE:
                     </label>
                     <input
                       type="text"
-                      className="input bg-gray-100 mt-1"
+                      className="  input bg-gray-200  w-full  border-b border-b-amber-300  text-base h-5 px-1"
                       value={formData.visaHSE || ""}
                       readOnly
                     />
@@ -906,50 +969,50 @@ export default function ConstatFinalPage() {
                 </div>
               </fieldset>
               <fieldset className="border p-4 rounded bg-gray-50 text-sm">
-                <legend className="font-medium px-2 text-base text-gray-700">
+                <legend className="font-medium px-2 text-base ">
                   Resp. Maintenance
                 </legend>
                 <div className="space-y-3">
                   <div>
-                    <label className="block text-xs font-medium text-gray-600">
+                    <label className="block mb-1 text-xs">
                       Nom & Prénom:
                     </label>
                     <input
                       type="text"
-                      className="input bg-gray-100 mt-1"
+                      className="  input bg-gray-200  w-full  border-b border-b-amber-300  text-base h-5 px-1"
                       value={formData.nomResponsableMaint || ""}
                       readOnly
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-600">
+                    <label className="block mb-1 text-xs">
                       Fonction:
                     </label>
                     <input
                       type="text"
-                      className="input bg-gray-100 mt-1"
+                      className="  input bg-gray-200  w-full  border-b border-b-amber-300  text-base h-5 px-1"
                       value={formData.fonctionResponsableMaint || ""}
                       readOnly
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-600">
+                    <label className="block mb-1 text-xs">
                       Date:
                     </label>
                     <input
                       type="date"
-                      className="input bg-gray-100 mt-1"
+                      className="  input bg-gray-200  w-full  border-b border-b-amber-300  text-base h-5 px-1"
                       value={formData.dateResponsableMaint || ""}
                       readOnly
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-600">
+                    <label className="block mb-1 text-xs">
                       Visa:
                     </label>
                     <input
                       type="text"
-                      className="input bg-gray-100 mt-1"
+                      className="  input bg-gray-200  w-full  border-b border-b-amber-300  text-base h-5 px-1"
                       value={formData.visaResponsableMaint || ""}
                       readOnly
                     />
@@ -959,7 +1022,7 @@ export default function ConstatFinalPage() {
             </div>
           </section>
           {/* --- Boutons d'action --- */}
-          <div className="flex flex-col sm:flex-row justify-between items-center mt-10 pt-6 border-t border-gray-200 gap-4">
+          <div className="flex flex-col sm:flex-row justify-between items-center mt-10 pt-6 border-t border-blue-800  gap-4">
             <button
               type="button"
               onClick={() => router.back()} // Utiliser router.back() pour revenir
@@ -984,6 +1047,6 @@ export default function ConstatFinalPage() {
           </div>
         </div>
       </div>
-    </div>
+   
   );
 }

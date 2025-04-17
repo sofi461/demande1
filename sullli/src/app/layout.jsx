@@ -15,11 +15,11 @@ export default function RootLayout({ children }) {
     <html lang="fr">
       <body className={inter.className}>
         {/* Ici, vous pourriez ajouter un header/footer global à toute l'application */}
-        <Navbar />
+        
         <main>
           {children} {/* Les pages et layouts enfants seront rendus ici */}
         </main>
-        <Footer />
+      
       </body>
     </html>
   );

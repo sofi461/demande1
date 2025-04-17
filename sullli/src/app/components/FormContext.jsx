@@ -53,6 +53,9 @@ const defaultKeys = {
   visaResponsableMaint: "",
   // Ajouter d'autres clés si nécessaire (ex: structureDetail)
   structureDetail: "",
+  garage:"",
+  externe:"",
+  canalisation:"",
 };
 
 export const FormProvider = ({ children }) => {

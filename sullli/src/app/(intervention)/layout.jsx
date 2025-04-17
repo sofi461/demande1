@@ -1,13 +1,14 @@
  
 "use client";  
 
-import { FormProvider } from "../components/FormContext";  
+import { FormProvider } from "../components/fromcontextrapport";  
+
 
 export default function InterventionLayout({ children }) {
   return (
     <FormProvider>
       {/* Appliquer le fond jaune ici pour toutes les pages du formulaire */}
-      <div className="min-h-screen bg-yellow-50">{children}</div>
+      <div  >{children}</div>
     </FormProvider>
   );
 }

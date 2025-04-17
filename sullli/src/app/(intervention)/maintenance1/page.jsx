@@ -65,7 +65,7 @@
  
      if (isValid) {
        setError(false);
-       router.push("/maintenance2");  
+       router.push("/rapport");  
      } else {
        setError(true);
      }
@@ -79,7 +79,7 @@
  
    return (
      <div className="p-6 flex flex-col gap-6 text-gray-800">
-       <div className=" bg-white p-6 rounded-2xl shadow-md ">
+       <div className=" bg-white p-6 rounded-2xl shadow-md  ">
          {" "}
           {/* Centrage */}
          {/* Barre de progression optionnelle */}

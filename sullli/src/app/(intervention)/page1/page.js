@@ -21,6 +21,9 @@ export default function Page1() {
         (formData.structureMaint?.trim() ||
           formData.district?.trim() ||
           formData.cds?.trim() ||
+          formData.canalisation?.trim()||
+          formData.garage?.trim()||
+          formData.externe?.trim()||
           formData.structureDetail?.trim()) &&  
         formData.nomDemandeur?.trim() &&
         formData.fonctionDemandeur?.trim() &&
@@ -34,8 +37,10 @@ export default function Page1() {
     updateField("structureMaint", structureValue);
     // Réinitialiser les champs associés
     updateField("cds", "");
-    updateField("district", "");
-    updateField("structureDetail", ""); 
+    updateField("district", ""); 
+   updateField("garage" ,"");
+   updateField("externe" ,"");
+   updateField("canalisation","");
 
    
     if (textValue !== null) {
@@ -44,19 +49,20 @@ export default function Page1() {
       } else if (structureValue === "unm") {
         updateField("district", textValue);
       } else if (
-        structureValue === "garage" ||
-        structureValue === "externe" ||
-        structureValue === "canalisation"
+        structureValue === "garage"  
       ) {
-     
-        updateField("structureDetail", textValue);
-      }
+            updateField("garage", textValue);
+      }else if(structureValue==="externe"){
+        updateField("externe",textValue)
+      }else {updateField("canalisation",textValue)}
     }
   };
 
   const handleNavigation = () => {
     if (isFormValid()) {
       router.push("/vehicule"); 
+     console.log(formData);
+     
     } else {
       alert("Veuillez remplir tous les champs obligatoires.");
     }
@@ -184,7 +190,7 @@ export default function Page1() {
           />
           <div className="div">
         <h4 className="text-yellow-600 font-semibold text-lg mb-2 mt-4">
-          Nature de panne :
+          Degré d'urgence :
         </h4>
           <RadioGroup
             name="urgence"
@@ -218,7 +224,13 @@ labelClassName= "text-yello-600 font-semibold text-lg mb-2"
                         ? "cds"
                         : option.value === "unm"
                         ? "district"
-                        : "structureDetail"
+                        : option.value==="garage"
+                        ? "garage"
+                        : option.value==="externe"
+                        ? "externe"
+                        :  option.value ==="canalisation"
+                        ? "canalisation"
+                        : ""
                     ]
                   )
                 }  
@@ -246,8 +258,14 @@ labelClassName= "text-yello-600 font-semibold text-lg mb-2"
                         ? "cds"
                         : option.value === "unm"
                         ? "district"
-                        : "structureDetail"
-                    ] || ""
+                        :   option.value === "garage"
+                        ? "garage"
+                        :   option.value === "externe"
+                        ? "externe"
+                        : option.value === "canalisation"
+                        ? "canalisation"
+                        :""
+                    ] 
                   }  
                   onChange={(e) =>
                     handleStructureChange(option.value, e.target.value)

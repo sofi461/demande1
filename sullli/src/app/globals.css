@@ -1,0 +1,32 @@
+@import "tailwindcss";
+@layer utilities{
+    .top-6_5{
+        top: 520px
+    }
+    .top-8_8{
+        position: absolute;
+        top: 535px;
+    }
+    .top-6_7{
+        position: absolute;
+        top: 14%;
+    }
+    .top-100{
+        position: absolute;
+        top: 200%;
+        left: 80%;
+    }
+    .top-2_11{
+        position:absolute;
+        top: 850px;
+    }
+    .top_100{
+        position:absolute;
+        top: 1114px;
+        left: 76.6%;
+    }
+    .top_25{
+        position: absolute;
+        top:130px
+    }
+}
