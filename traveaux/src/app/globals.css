@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+ 
+ 
+
+ 
+td{
+ padding: 10px;
+}
+td input[type="text"],
+td input[type="number"] {
+  width: 95%; /* Prend presque toute la largeur de la cellule */
+  padding: 6px 4px; /* Espace intérieur */
+  border: 1px solid #dcdcdc; /* Bordure légère */
+  box-sizing: border-box; /* Inclut padding et border dans la largeur totale */
+  font-size: 14px; /* Taille de police cohérente */
+}
+
+td input[type="number"] {
+    text-align: right; /* Aligner les nombres à droite */
+}
+
+/* Style pour les cellules du total (dans tfoot) */
+tfoot td {
+  font-weight: bold; /* Texte en gras */
+
+}
+
+/* Style pour les boutons */
+button {
+  padding: 8px 15px;
+  margin-top: 5px;
+  cursor: pointer;
+  background-color: #4CAF50; /* Vert */
+  color: white;
+  border: none;
+  border-radius: 3px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Style spécifique pour le bouton supprimer ligne */
+td button {
+    padding: 2px 8px;
+    background-color: #f44336; /* Rouge */
+    font-size: 12px;
+    line-height: 1; /* Ajuste la hauteur */
+}
+
+td button:hover {
+    background-color: #da190b;
+}
+
+/* Style global pour l'application (optionnel) */
+.App {
+  font-family: sans-serif;
+  padding: 20px;
+  max-width: 1200px; /* Limite la largeur max */
+  margin: 0 auto; /* Centre le contenu */
+}
+
+h1, h2 {
+    color: #333;
+}
